@@ -8,6 +8,7 @@ import { ArrowRight, Star, Check, Globe, Shield, Wallet, Clock, ArrowRightLeft, 
 import { servicesCatalog } from "../data/servicesCatalog";
 import { portfolioProjects } from "../data/portfolioData";
 import { Testimonial } from "../types";
+import WhatsAppIcon from "../components/WhatsAppIcon";
 
 export const heroSlides = [
   {
@@ -126,7 +127,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
       role: "SME Owner, Rongai Rd",
       rating: 5,
       quote: "They built our clinic's patient booking website. Very clear consultation packages and fully responsive across smartphones. Skip the amateurs, let Tumaini design your business web layouts!",
-      avatarInitials: "AI"
+      avatarInitials: "AB"
     }
   ];
 
@@ -149,12 +150,12 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
           <img
             src={heroSlides[currentSlide].imageUrl}
             alt={heroSlides[currentSlide].title}
-            className="w-full h-full object-cover opacity-30 transition-all duration-1000 ease-out transform scale-100 filter brightness-95"
+            className="w-full h-full object-cover opacity-65 transition-all duration-1000 ease-out transform scale-100 filter brightness-105"
             referrerPolicy="no-referrer"
           />
-          {/* Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/85 to-[#0F172A]/70" />
-          <div className="absolute inset-0 bg-black/40" />
+          {/* High-visibility shading gradients */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#050814]/95 via-[#050814]/55 to-[#050814]/25" />
+          <div className="absolute inset-0 bg-black/35" />
         </div>
 
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:px-10 relative z-2">
@@ -166,14 +167,18 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
             </div>
 
             {/* Dynamic Large Heading */}
-            <h1 className="font-heading font-black text-4xl md:text-7xl leading-[1.05] tracking-tight text-white max-w-3xl drop-shadow-md">
-              {heroSlides[currentSlide].title}
-            </h1>
+            <div className="min-h-[96px] sm:min-h-[80px] md:min-h-[150px] lg:min-h-[160px] flex items-center">
+              <h1 className="font-heading font-black text-4xl md:text-7xl leading-[1.05] tracking-tight text-white max-w-3xl drop-shadow-md animate-fade-in">
+                {heroSlides[currentSlide].title}
+              </h1>
+            </div>
 
             {/* Dynamic Slider Description */}
-            <p className="text-slate-200 text-base md:text-xl leading-relaxed max-w-2xl drop-shadow-sm font-medium">
-              {heroSlides[currentSlide].desc}
-            </p>
+            <div className="min-h-[80px] sm:min-h-[48px] md:min-h-[60px] flex items-center">
+              <p className="text-slate-200 text-base md:text-xl leading-relaxed max-w-2xl drop-shadow-sm font-medium animate-fade-in">
+                {heroSlides[currentSlide].desc}
+              </p>
+            </div>
 
             {/* CTA Option Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-3">
@@ -183,7 +188,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
                 style={{ borderRadius: "4px" }}
               >
                 Our Services Catalogue
-                <ArrowRight className="w-4 h-4 animate-ping" />
+                <ArrowRight className="w-4 h-4 animate-pulse" />
               </button>
               <a
                 href="https://wa.me/254759607619?text=Hello%20Tumaini%20Cyber,%20I'd%2520like%2520to%2520enquire%252520about%25252520your%2525252520services"
@@ -192,7 +197,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
                 className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-heading text-sm font-bold tracking-wider uppercase px-8 py-4.5 cursor-pointer flex items-center justify-center gap-2 backdrop-blur-md hover:scale-[1.01] transition-all"
                 style={{ borderRadius: "4px" }}
               >
-                <MessageSquare className="w-4 h-4 text-[#25D366] fill-[#25D366]" />
+                <WhatsAppIcon className="w-5 h-5" fill="#25D366" />
                 WhatsApp Live Helpline
               </a>
             </div>

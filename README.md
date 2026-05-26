@@ -1,89 +1,89 @@
-# Tumaini Cyber Portal - Nairobi
+# Tumaini Cyber Portal - High-Performance Client Showcase
 
 <p align="center">
-  <img src="tumaini-cyber-logo.png" alt="Tumaini Cyber Logo" width="300" />
+  <img src="./tumaini-cyber-logo.png" alt="Tumaini Cyber Logo" style="border-radius: 8px; max-width: 100%; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" referrerPolicy="no-referrer" />
 </p>
 
-A premium, fully responsive full-stack website and administrative services catalog engineered with modern React, TypeScript, Tailwind CSS, and Express. The entire portal is hand-crafted with absolute semantic layout fidelity, strict accessibility compliance (WCAG 2.1), and zero-error digital workflows.
-
-### 🔗 Live Showcase Link
-The live production deployment of the website is available here:
-**[https://tumaini-cyber.netlify.app/](https://tumaini-cyber.netlify.app/)**
+## 🚀 Welcome Prospective Employers & Clients
+This project is an **enterprise-grade, high-conversion full-stack digital showcase** built for **Tumaini Cyber**, Nairobi's premier technical hub. Specially engineered to demonstrate advanced expertise in modern React 18, TypeScript, Tailwind CSS, Node.js/Express, and micro-interactions, it serves as a live testament to professional software engineering standards, modular code separation, and pixel-perfect design practices.
 
 ---
 
-## 🌟 Core Project Vision
-The Tumaini Cyber Portal serves as Nairobi's premier technical hub interface, designed to bridge the complex administrative gap for graduates, small business owners, and local residents. From eCitizen registration and KRA compliance to gold-foil bound academic theses, the application acts as a secure, fast, and friendly technical guide.
+### 🔗 Quick Navigation & Project Links
+* **Live Web Portal:** **[https://tumaini-cyber.netlify.app/](https://tumaini-cyber.netlify.app/)**
+* **GitHub Repository:** **[https://github.com/martinmulwa95/tumaini-cyber-portal](https://github.com/martinmulwa95/tumaini-cyber-portal)**
+* **Developer Portfolio:** **[Martin Mulwa - GitHub Profile](https://github.com/martinmulwa95)**
 
-This project was specifically designed and built by a freelance developer to demonstrate professional-grade full-stack proficiency in implementing custom high-fidelity frontend themes, optimized state machines, and reliable proxy servers.
+---
+
+## ⚡ What Makes This Project Resume-Worthy? (Engineering Skills Under the Hood)
+
+This application isn't just a static landing page—it is a deeply integrated, state-driven client-focused product. By digging into the code, recruiters, hiring managers, and prospective clients will find clean implementation of the following concepts:
+
+### 1. Robust Modular State Architecture
+Instead of cramming logic into monolithic files, the codebase adheres to strict modular principles. All custom views (e.g., `HomeView`, `ServicesView`, `PortfolioView`, `BlogView`, `ShopView`, `AboutView`, `ContactView`) are isolated, while shared state—such as the active layout views, the real-time client-side shopping cart drawer, and interactive event triggers—are coordinated cleanly at the root level (`App.tsx`) with zero-render-jitter.
+
+### 2. High-Performance Mobile-Responsive Layouts
+- **Zero-Shift CSS Layouts:** Added strict minimum bounding heights to hero slides preventing layout shifts (CLS) when dynamic texts slide.
+- **Pixel-Perfect Scaling:** Re-engineered the main header and responsive desktop nav links to support micro-layout constraints when transitioning down to medium tablet break-points.
+- **Touch-Friendly Hitboxes:** Minimum 44px hitboxes for buttons across responsive dimensions.
+
+### 3. Business-Driven Integrations
+- **WhatsApp Direct Checkout API:** Calculates complex itemized subtotals inside the local checkout cart and automatically packages them into a beautifully structured, pre-filled WhatsApp API text link (`wa.me`) for instant client-to-business checkout completion.
+- **Interactive Deep-Links:** Allows users to view real-time case studies and complete articles, and immediately redirects them back to custom, prepopulated corporate dialogue support vectors with smooth auto-scroll to header focus.
+
+### 4. Flawless Micro-Animations & HTML5 Canvas Physics
+- Custom zero-dependency particles physics system inside `<Confetti />` executing fluid rotation, mass, gravity, and drag dynamics at 60 FPS upon contact form deliveries.
+- Ambient typography animations using carefully structured keyframe tracks (`animate-gradient-text`, `glow-btn`, `shine-hover-card`).
 
 ---
 
 ## 🛠️ Feature Highlights
 
-1. **Perfect Prints & Copying catalog**: Deep pricing tables matching dual duplex layouts, margin standards, and exact material weights (80gsm, glossy cardboards).
-2. **KRA & eCitizen Onboarding**: Smooth step-by-step guides helping Nairobi's trading sole proprietorships transition to the new eTIMS electronic invoicing.
-3. **ATS Resume & Careers pack**: ATS-optimized formatting rules designed to assist secondary list graduates in securing employment.
-4. **Vibrant Retail Store**: Secure local shopping cart allowing users to buy stationery, vouchers, and compute accessories with automatic price compilation.
-5. **Interactive Confetti Celebration CSS/JS Tricks**: Symmetrical, physics-based canvas particle effects triggered upon checkout or successful inquiry submission.
-6. **Animated Vector Identities & Logo Fallback**: Smooth custom SVG logo orbital graphics paired with custom error-routed rendering for `/tumaini-cyber-logo.png` to avoid broken frames.
-7. **Comprehensive Blog & Case Studies**: Exhaustive, technical write-ups highlighting tooling, constraints, and metrics from Nairobi based implementations.
+* **🛒 E-Commerce Cart & Automated Pricing:** Interactive stationery, compute accessory, and voucher shelf compiling precise M-Pesa client checkout packages.
+* **📚 Resource & Article Hub:** Highly readable search and category-filtered informational suite styled for peak editorial reading comfort.
+* **💼 Projects Portfolio & Case Studies:** Filterable business index showcasing delivered project specifications, business impacts, and validated performance metrics.
+* **🏢 Interactive Services Catalog:** Synchronized 3-category navigation mapping exact government, business, and educational digital pricing tiers.
 
 ---
 
-## 🏢 Architectural File Directory
-
+## 📂 Key Architecture Map
 ```text
-/
-├── .env.example              <- Environment variables template
-├── index.html                <- Main web page entry point
-├── metadata.json             <- AI Studio applet permissions and name configurations
-├── package.json              <- Core dependencies configurations
-├── vite.config.ts            <- Vite development server configuration
-├── tsconfig.json             <- Strict Compiler type rules
-├── README.md                 <- Professional technical manual (This File)
-├── server.ts                 <- Full-Stack Express proxy server
-└── src/
-    ├── main.tsx              <- Root application initiator
-    ├── App.tsx               <- Central router, cart coordinators, and views manager
-    ├── index.css             <- Tailwind base with customized keyframe animations
-    ├── types.ts              <- Strict generic model types and structures
-    ├── components/
-    │   ├── Navbar.tsx        <- Fluid multi-breakpoint navigation bar
-    │   ├── Footer.tsx        <- Categorized footer linking to Services categories
-    │   ├── Logo.tsx          <- High-contrast dual rendering logo fallback
-    │   └── Confetti.tsx      <- HTML5 Canvas physical particle streams
-    ├── data/
-    │   ├── servicesCatalog.ts <- Detailed services classifications & prices
-    │   ├── blogData.ts       <- Highly-detailed regulatory and technical writeups
-    │   ├── portfolioData.ts  <- Complex case-studies and historical client outcomes
-    │   └── shopData.ts       <- Complete stationery and peripherals items
-    └── views/
-        ├── HomeView.tsx      <- Landing view featuring Unsplash graphic overlays
-        ├── ServicesView.tsx  <- Synchronized tabs catalog filtered from footer
-        ├── BlogView.tsx      <- Searchable resource portal containing full posts
-        ├── PortfolioView.tsx <- Case histories and projects showcase
-        ├── ShopView.tsx      <- Store with active sliding cart drawers
-        ├── AboutView.tsx     <- Corporate story, team members, and hub utilities
-        └── ContactView.tsx   <- Floating labels helpdesk questionnaire form
+src/
+├── App.tsx               <- Central state coordinator, view router, and sliding cart manager
+├── main.tsx              <- Clean root initiator
+├── index.css             <- Typography setup with theme-level keyframes
+├── types.ts              <- Strict unified data schemas and object models
+├── components/           <- High-quality modular primitives
+│   ├── Logo.tsx          <- High-contrast branding element matching parent navigation heights
+│   ├── Navbar.tsx        <- Breakpoint-safe navigation bar matching logo scale
+│   ├── Footer.tsx        <- Fully structured, categorized footer linking services
+│   ├── Confetti.tsx      <- Custom 60 FPS HTML5 Canvas physical particle simulator
+│   └── WhatsAppIcon.tsx  <- Scalable Vector Graphics logo representation
+├── data/                 <- Hardened data stores
+│   ├── servicesCatalog.ts
+│   ├── blogData.ts       
+│   ├── portfolioData.ts  
+│   └── shopData.ts       
+└── views/                <- Rich multi-layered user experience views
+    ├── HomeView.tsx      
+    ├── ServicesView.tsx  
+    ├── BlogView.tsx      
+    ├── PortfolioView.tsx 
+    └── ShopView.tsx      
 ```
 
 ---
 
-## 🎨 Interactive CSS & JS Tricks Applied
+## 💼 Let's Build Something Great Together!
+This portal demonstrates my ability to take a ambiguous freelance requirement and turn it into a top-tier, production-deployable digital asset. I am currently open to:
+- **Full-Time Software Engineering Roles** (React, TypeScript, Next.js, Node.js/Express, Cloud Ops)
+- **Freelance & Contract Engagements** (Bespoke E-commerce, modern custom landing pages, administrative/automation portals)
 
-- **`animate-gradient-text`**: Shifting, smooth text linear gradient track transitions that pulse brand accents across display headings.
-- **`glow-btn`**: Pulsing visual drop-shadow envelopes on primary clickable CTA elements showing rich dynamic cursor focus.
-- **`shine-hover-card`**: Elegant diagonal white glass sheen sweep translating across cards when under hover cursors.
-- **Canvas Confetti Engine**: Zero-dependency particles physics simulations animating gravity, rotation, and air friction dynamically at 60 FPS.
+If you're a prospective client or employer looking to build lightning-fast web products with meticulous attention to detail, don't hesitate to reach out:
+
+📧 **Email:** **martinmulwa1711@gmail.com**  
+💼 **Portfolio & Live App:** **[https://tumaini-cyber.netlify.app/](https://tumaini-cyber.netlify.app/)**
 
 ---
-
-## 👥 Authorship and Credits
-
-- **Business Owner & Lead Director**: Jane Kamau (Director of Tumaini Cyber)
-- **Software Architect & Full-Stack Developer**: Martin Mulwa (Freelance developer hired to architect, design, and build the custom digital portal and core website showcase)
-- **Demonstrated Tech Stack**: React 18, TypeScript, Tailwind CSS, Express Node.js Server, and Custom Canvas Physics Animation Engines.
-- **Hosting and Production Environment**: Cloud Run Ingress Proxy
-
-*This customized web application was built by **Martin Mulwa © 2026** as a premium full-stack demonstration project to prove advanced mastery of responsive, accessible design patterns and full-stack software development.*
+*Created with ❤️ by **Martin Mulwa** © 2026. Code freely available under Apache-2.0.*

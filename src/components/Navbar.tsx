@@ -61,22 +61,22 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
   return (
     <header
       id={id}
-      className={`sticky top-0 z-100 transition-all duration-300 font-sans border-b ${
-        scrolled ? "bg-slate-50/85 backdrop-blur-md shadow-sm border-[#EAECEF]" : "bg-white border-transparent"
+      className={`sticky top-0 z-100 transition-all duration-300 font-sans border-b bg-white ${
+        scrolled ? "shadow-md border-[#EAECEF]" : "border-[#EAECEF]/60"
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-10 h-24 md:h-28 flex items-center justify-between">
         {/* Logo block */}
         <button
           onClick={() => handleNavItemClick("home")}
-          className="hover:opacity-95 transition-all text-left flex items-center cursor-pointer"
+          className="hover:opacity-95 transition-all text-left flex items-center cursor-pointer flex-shrink-0"
           aria-label="Tumaini Cyber Home"
         >
-          <Logo variant="horizontal" className="h-20 md:h-24 lg:h-28 w-auto object-contain flex-shrink-0 py-1" />
+          <Logo variant="horizontal" className="h-24 md:h-28 w-auto object-contain flex-shrink-0 py-0" />
         </button>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-8 flex-shrink-0">
           {navLinks.map((link) => (
             <div
               key={link.view}
@@ -87,19 +87,19 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
               {link.dropdown ? (
                 <button
                   onClick={() => handleNavItemClick("services")}
-                  className={`flex items-center gap-1 font-heading text-sm font-bold tracking-wide uppercase transition-colors duration-250 cursor-pointer ${
+                  className={`flex items-center gap-1 font-heading text-xs xl:text-sm font-bold tracking-wide uppercase transition-colors duration-250 cursor-pointer whitespace-nowrap flex-shrink-0 ${
                     currentView === "services" ? "text-[#1997E6]" : "text-[#1E293B] hover:text-[#1997E6]"
                   }`}
                   aria-expanded={servicesDropdownOpen}
                   aria-haspopup="true"
                 >
                   {link.name}
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-3.5 h-3.5" />
                 </button>
               ) : (
                 <button
                   onClick={() => handleNavItemClick(link.view)}
-                  className={`font-heading text-sm font-bold tracking-wide uppercase transition-colors duration-250 cursor-pointer relative ${
+                  className={`font-heading text-xs xl:text-sm font-bold tracking-wide uppercase transition-colors duration-250 cursor-pointer relative whitespace-nowrap flex-shrink-0 ${
                     currentView === link.view ? "text-[#1997E6]" : "text-[#1E293B] hover:text-[#1997E6]"
                   }`}
                 >
@@ -132,11 +132,11 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
         </nav>
 
         {/* Header Right Actions */}
-        <div className="hidden lg:flex items-center gap-5">
+        <div className="hidden lg:flex items-center gap-3.5 xl:gap-6 flex-shrink-0">
           {/* Cart Icon */}
           <button
             onClick={onOpenCart}
-            className="p-2.5 text-[#1E293B] hover:text-[#1997E6] transition-colors relative cursor-pointer"
+            className="p-2.5 text-[#1E293B] hover:text-[#1997E6] transition-colors relative cursor-pointer flex-shrink-0"
             aria-label="Open Cart"
           >
             <ShoppingCart className="w-5.5 h-5.5" />
@@ -149,17 +149,17 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
 
           {/* Phone Link */}
           <a
-            href="tel:+254712345678"
-            className="flex items-center gap-1.5 text-xs font-bold text-[#1E293B] hover:text-[#1997E6] transition-colors"
+            href="tel:+254759607619"
+            className="flex items-center gap-1.5 text-xs font-black text-[#1E293B] hover:text-[#1997E6] transition-colors whitespace-nowrap flex-shrink-0"
           >
-            <Phone className="w-4 h-4 text-[#1997E6]" />
-            <span className="font-mono tracking-tight">+254 712 345 678</span>
+            <Phone className="w-4 h-4 text-[#1997E6] flex-shrink-0" />
+            <span className="font-mono tracking-tight">+254 759 607 619</span>
           </a>
 
           {/* Request Quote Button */}
           <button
             onClick={() => handleNavItemClick("contact")}
-            className="bg-[#1997E6] hover:bg-[#147ec2] text-white font-heading text-xs font-bold tracking-wider uppercase px-5 py-3 transition-all duration-250 cursor-pointer select-none"
+            className="bg-[#1997E6] hover:bg-[#147ec2] text-white font-heading text-[10px] xl:text-xs font-bold tracking-wider uppercase px-4 xl:px-6 py-2.5 xl:py-3.5 transition-all duration-250 cursor-pointer select-none whitespace-nowrap flex-shrink-0"
             style={{ borderRadius: "4px" }}
           >
             Request Quote
@@ -238,16 +238,16 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
             {/* Mobile CTAs */}
             <div className="pt-4 flex flex-col gap-3">
               <a
-                href="tel:+254712345678"
+                href="tel:+254759607619"
                 className="w-full flex items-center justify-center gap-2 border border-[#EAECEF] py-3 text-sm font-bold text-[#1E293B] active:bg-slate-50"
                 style={{ borderRadius: "4px" }}
               >
                 <Phone className="w-4 h-4 text-[#1997E6]" />
-                <span className="font-mono">+254 712 345 678</span>
+                <span className="font-mono">+254 759 607 619</span>
               </a>
 
               <a
-                href="https://wa.me/254712345678?text=Hello%20Tumaini%20Cyber,%20I'd%20like%20to%20enquire%20about%20your%20services"
+                href="https://wa.me/254759607619?text=Hello%20Tumaini%20Cyber,%20I'd%20like%20to%20enquire%20about%20your%20services"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 bg-[#25D366] py-3 text-sm font-bold text-white active:bg-emerald-600"

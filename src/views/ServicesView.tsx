@@ -225,15 +225,21 @@ export default function ServicesView({ initialCategory = "government", id = "ser
 
               {/* Action Button which redirects to WhatsApp with prepopulated text */}
               <div className="pt-8 mt-8 border-t border-[#EAECEF]">
-                <a
-                  href={`https://wa.me/254712345678?text=${encodeURIComponent(`Hello Tumaini Cyber, I'd like to enquire about ${service.name}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full text-center bg-slate-50 hover:bg-[#1997E6] hover:text-white border border-[#EAECEF] py-3 text-xs font-bold text-[#1E293B] block uppercase tracking-wider transition-all"
-                  style={{ borderRadius: "4px" }}
-                >
-                  Order Service On WhatsApp
-                </a>
+                {service.id === "internet-browsing" || service.id === "software-use" ? (
+                  <div className="w-full text-center bg-[#F1F5F9] border border-[#E2E8F0] py-3 text-xs font-bold text-[#64748B] block uppercase tracking-wider select-none" style={{ borderRadius: "4px" }}>
+                    Walk-In Service Only (No advance booking)
+                  </div>
+                ) : (
+                  <a
+                    href={`https://wa.me/254759607619?text=${encodeURIComponent(`Hello Tumaini Cyber, I'd like to enquire about ${service.name}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center bg-slate-50 hover:bg-[#1997E6] hover:text-white border border-[#EAECEF] py-3 text-xs font-bold text-[#1E293B] block uppercase tracking-wider transition-all"
+                    style={{ borderRadius: "4px" }}
+                  >
+                    Order Service On WhatsApp
+                  </a>
+                )}
               </div>
             </div>
           ))}

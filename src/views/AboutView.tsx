@@ -320,7 +320,7 @@ export default function AboutView({ onNavigate, id = "about-view" }: AboutViewPr
 
           <div className="flex gap-4">
             <a
-              href="https://wa.me/254712345678?text=Hello%20Tumaini%20Cyber,%20I'd%20like%20to%20enquire%20about%20your%20services"
+              href="https://wa.me/254759607619?text=Hello%20Tumaini%20Cyber,%20I'd%20like%20to%20enquire%20about%20your%20services"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#25D366] text-white px-5 py-3 text-sm font-bold tracking-wide uppercase transition-colors"

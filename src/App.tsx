@@ -14,6 +14,9 @@ import PortfolioView from "./views/PortfolioView";
 import BlogView from "./views/BlogView";
 import ShopView from "./views/ShopView";
 import ContactView from "./views/ContactView";
+import CareersView from "./views/CareersView";
+import PrivacyView from "./views/PrivacyView";
+import TermsView from "./views/TermsView";
 import { Product, CartItem } from "./types";
 
 export default function App() {
@@ -23,6 +26,11 @@ export default function App() {
   // Basket Shopping State managed globally
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
+
+  // Scroll directly to the top of the specific section on view changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [view]);
 
   // 8.1 On-Page SEO & Metadata Manager useEffect
   useEffect(() => {
@@ -57,6 +65,18 @@ export default function App() {
       case "contact":
         pageTitle = "Contact Helpdesk | Tumaini Cyber";
         metaDesc = "Reach out to Tumaini Cyber in Ongata Rongai, Nairobi. Access our EAT hours, telephone voice channels, and submit a secure quote request online.";
+        break;
+      case "careers":
+        pageTitle = "Careers | Tumaini Cyber — Join Nairobi's Top Hub";
+        metaDesc = "Grow your digital career at Tumaini Cyber. View open roles for digital cabinet attendants, graphic designers, and IT system technicians in Ongata Rongai.";
+        break;
+      case "privacy":
+        pageTitle = "Privacy Policy | Tumaini Cyber";
+        metaDesc = "Read how Tumaini Cyber Café handles iTax, eCitizen credentials, identity documents, and temporary cash receipt guidelines securely.";
+        break;
+      case "terms":
+        pageTitle = "Terms of Service | Tumaini Cyber";
+        metaDesc = "Review Tumaini Cyber Café's standard digital service terms, transparent price quotes, document typesetting formats, and delivery timelines.";
         break;
       default:
         pageTitle = "Tumaini Cyber — Ongata Rongai";
@@ -172,6 +192,9 @@ export default function App() {
           />
         )}
         {view === "contact" && <ContactView />}
+        {view === "careers" && <CareersView onNavigate={handleNavigation} />}
+        {view === "privacy" && <PrivacyView onNavigate={handleNavigation} />}
+        {view === "terms" && <TermsView onNavigate={handleNavigation} />}
       </main>
 
       {/* Persistent global floating WhatsApp action - Section 7.4 */}

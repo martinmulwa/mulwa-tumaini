@@ -63,7 +63,7 @@ export default function ShopView({
     });
     orderDetail += `\n*TOTAL AMOUNT: KSh ${cartSubtotal}*\n`;
     orderDetail += "\nPlease advise on checkout payment codes and delivery timelines. Thank you!";
-    return `https://wa.me/254712345678?text=${encodeURIComponent(orderDetail)}`;
+    return `https://wa.me/254759607619?text=${encodeURIComponent(orderDetail)}`;
   };
 
   return (

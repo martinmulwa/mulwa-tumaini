@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Search, Clock, User, ArrowRight, X, Mail, Sparkles, AlertCircle } from "lucide-react";
 import { blogPosts } from "../data/blogData";
 import { BlogPost } from "../types";
+import WhatsAppIcon from "../components/WhatsAppIcon";
 
 interface BlogViewProps {
   id?: string;
@@ -16,6 +17,11 @@ export default function BlogView({ id = "blog-view" }: BlogViewProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<"all" | "government" | "business" | "tech" | "design" | "student">("all");
   const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
+
+  const handleSelectArticle = (post: BlogPost) => {
+    setSelectedArticle(post);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const categories = [
     { id: "all", label: "All Topics" },
@@ -44,10 +50,219 @@ export default function BlogView({ id = "blog-view" }: BlogViewProps) {
   // Stats for the sidebar
   const trendingArticles = blogPosts.slice(0, 3);
 
+  const parseInlineStyles = (text: string) => {
+    const parts = text.split(/(\*\*.*?\*\*)/);
+    return parts.map((part, idx) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={idx} className="font-extrabold text-[#0D1527]">{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
+
+  const renderParagraphs = (content: string) => {
+    const blocks = content.split("\n");
+    const elements: React.ReactNode[] = [];
+    let currentList: { type: "ol" | "ul"; items: string[] } | null = null;
+    let elementKey = 0;
+
+    const flushList = (key: number) => {
+      if (!currentList) return null;
+      const list = currentList;
+      currentList = null;
+      
+      if (list.type === "ul") {
+        return (
+          <ul key={`ul-${key}`} className="my-5 bg-[#F8FAFC] border border-[#EAECEF] p-6 pl-8 space-y-3 list-disc" style={{ borderRadius: "6px" }}>
+            {list.items.map((item, idx) => (
+              <li key={idx} className="text-[#334155] text-xs md:text-sm font-medium leading-relaxed pl-1">
+                {parseInlineStyles(item)}
+              </li>
+            ))}
+          </ul>
+        );
+      } else {
+        return (
+          <ol key={`ol-${key}`} className="my-5 bg-[#F8FAFC] border border-[#EAECEF] p-6 pl-10 space-y-3 list-decimal" style={{ borderRadius: "6px" }}>
+            {list.items.map((item, idx) => (
+              <li key={idx} className="text-[#334155] text-xs md:text-sm font-medium leading-relaxed pl-1">
+                {parseInlineStyles(item)}
+              </li>
+            ))}
+          </ol>
+        );
+      }
+    };
+
+    for (let i = 0; i < blocks.length; i++) {
+      const line = blocks[i].trim();
+      if (!line) {
+        if (currentList) elements.push(flushList(elementKey++));
+        continue;
+      }
+      
+      if (line.startsWith("###")) {
+        if (currentList) elements.push(flushList(elementKey++));
+        elements.push(
+          <h4 key={elementKey++} className="font-heading font-black text-xs md:text-sm text-[#0F172A] border-l-4 border-[#1997E6] pl-3 pt-6 mt-6 pb-1 uppercase tracking-wider block">
+            {line.replace("###", "").trim()}
+          </h4>
+        );
+      } else if (line.startsWith("*")) {
+        const itemText = line.substring(1).trim();
+        if (currentList && currentList.type !== "ul") {
+          elements.push(flushList(elementKey++));
+        }
+        if (!currentList) currentList = { type: "ul", items: [] };
+        currentList.items.push(itemText);
+      } else if (/^\d+\.\s/.test(line)) {
+        const itemText = line.replace(/^\d+\.\s/, "").trim();
+        if (currentList && currentList.type !== "ol") {
+          elements.push(flushList(elementKey++));
+        }
+        if (!currentList) currentList = { type: "ol", items: [] };
+        currentList.items.push(itemText);
+      } else {
+        if (currentList) elements.push(flushList(elementKey++));
+        elements.push(
+          <p key={elementKey++} className="text-[#334155] text-xs md:text-sm font-medium leading-relaxed mb-4">
+            {parseInlineStyles(line)}
+          </p>
+        );
+      }
+    }
+    
+    if (currentList) elements.push(flushList(elementKey++));
+    return elements;
+  };
+
   const getCategoryCount = (catId: string) => {
     if (catId === "all") return blogPosts.length;
     return blogPosts.filter((post) => post.category === catId).length;
   };
+
+  if (selectedArticle) {
+    return (
+      <div id={id} className="bg-[#F8FAFC] font-sans scroll-smooth py-12 md:py-16">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6 lg:px-10">
+          <button
+            onClick={() => {
+              setSelectedArticle(null);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#1997E6] hover:text-[#147ec2] mb-8 cursor-pointer select-none uppercase tracking-wider"
+          >
+            ← Back to Resources & Articles
+          </button>
+          
+          <div className="space-y-4 border-b border-[#EAECEF] pb-8 mb-8">
+            <div className="flex flex-wrap gap-2 items-center">
+              <span className="text-[9px] font-black uppercase text-[#EF233C] bg-red-50 border border-red-100 px-3 py-1 rounded">
+                {selectedArticle.categoryLabel}
+              </span>
+              <span className="text-slate-300">•</span>
+              <div className="inline-flex items-center gap-1.5 text-xs text-slate-500 font-mono">
+                <Clock className="w-3.5 h-3.5 text-[#1997E6]" />
+                <span>{selectedArticle.readTime}</span>
+              </div>
+            </div>
+            <h1 className="font-heading font-black text-2xl md:text-4xl text-[#0F172A] leading-tight tracking-tight">
+              {selectedArticle.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[#64748B] font-semibold pt-1">
+              <span className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded border border-slate-100">
+                <User className="w-3.5 h-3.5 text-slate-400" />
+                <span>By {selectedArticle.author}</span>
+              </span>
+              <span className="text-[#64748B]/60">• {selectedArticle.date}</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14">
+            <div className="lg:col-span-8 space-y-6">
+              <div className="aspect-[21/9] relative bg-slate-100 overflow-hidden shadow-sm" style={{ borderRadius: "6px" }}>
+                <img
+                  src={selectedArticle.imageUrl}
+                  alt={selectedArticle.title}
+                  referrerPolicy="no-referrer"
+                  className="object-cover w-full h-full animate-fade-in"
+                />
+              </div>
+
+              <div className="text-[#1E293B] space-y-6 pt-4 text-xs md:text-sm font-medium">
+                {renderParagraphs(selectedArticle.content)}
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 space-y-8">
+              <div className="bg-white border border-[#EAECEF] p-6 space-y-4 shadow-xs" style={{ borderRadius: "6px" }}>
+                <h4 className="font-heading font-bold text-xs uppercase tracking-widest text-[#0F172A] border-b border-slate-100 pb-2">
+                  Actionable Takeaways
+                </h4>
+                <ul className="space-y-3.5">
+                  <li className="flex items-start gap-2.5 text-xs text-[#475569] font-medium leading-relaxed">
+                    <span className="text-[#1997E6] font-extrabold">1.</span>
+                    <span>Review necessary requirements, credentials, and original receipts.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-xs text-[#475569] font-medium leading-relaxed">
+                    <span className="text-[#1997E6] font-extrabold">2.</span>
+                    <span>Walk in to our Ongata Rongai branch for immediate, expert help.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-xs text-[#475569] font-medium leading-relaxed">
+                    <span className="text-[#1997E6] font-extrabold">3.</span>
+                    <span>Save soft copies sent to your email to prevent missing certificates.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-[#0F172A] text-white p-6 border border-transparent space-y-5 shadow-xs" style={{ borderRadius: "6px" }}>
+                <div className="space-y-2">
+                  <span className="text-[9px] font-black uppercase text-[#1997E6] tracking-wider block">Ongata Rongai branch</span>
+                  <h4 className="font-heading font-black text-sm text-white uppercase tracking-wide">Need help with these steps?</h4>
+                  <p className="text-slate-300 text-[11px] leading-relaxed font-semibold">
+                    Our experienced cyber café attendants assist hundreds of customers daily with KRA, eCitizen, HELB, registries, smart DL filings, and printing.
+                  </p>
+                </div>
+                <div className="text-[10px] space-y-1.5 text-slate-400 font-mono border-t border-slate-800/80 pt-4">
+                  <div className="flex justify-between">
+                    <span>Mon — Sun:</span>
+                    <span className="text-[#25D366] font-bold">7AM - Midnight</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Address:</span>
+                    <span className="text-white">Ongata Rongai, Kenya</span>
+                  </div>
+                </div>
+                <a
+                  href={`https://wa.me/254759607619?text=${encodeURIComponent(`Hello Tumaini Cyber, I read your helpful guide: "${selectedArticle.title}". I would like help processing the related digital files or registrations.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center bg-[#25D366] hover:bg-[#1eba53] text-white py-3 px-4 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all select-none"
+                  style={{ borderRadius: "4px" }}
+                >
+                  <WhatsAppIcon className="w-4.5 h-4.5" fill="white" />
+                  Discuss on WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-[#EAECEF] flex justify-start">
+            <button
+              onClick={() => {
+                setSelectedArticle(null);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-6 py-3 text-xs font-bold uppercase tracking-wider select-none cursor-pointer"
+              style={{ borderRadius: "4px" }}
+            >
+              ← Back to Resources List
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id={id} className="bg-[#F8FAFC] font-sans scroll-smooth">
@@ -165,7 +380,7 @@ export default function BlogView({ id = "blog-view" }: BlogViewProps) {
 
                       <div className="pt-4 border-t border-[#EAECEF]">
                         <button
-                          onClick={() => setSelectedArticle(featuredArticle)}
+                          onClick={() => handleSelectArticle(featuredArticle)}
                           className="bg-[#1E293B] hover:bg-[#0F172A] text-white font-heading text-xs font-bold tracking-wider uppercase px-6 py-3.5 flex items-center gap-2 cursor-pointer transition-colors"
                           style={{ borderRadius: "4px" }}
                         >
@@ -189,7 +404,7 @@ export default function BlogView({ id = "blog-view" }: BlogViewProps) {
                           key={post.id}
                           className="bg-white border border-[#EAECEF] overflow-hidden flex flex-col justify-between group hover:border-[#1997E6] transition-all duration-250 cursor-pointer"
                           style={{ borderRadius: "6px" }}
-                          onClick={() => setSelectedArticle(post)}
+                          onClick={() => handleSelectArticle(post)}
                         >
                           <div className="space-y-5">
                             {/* Image */}
@@ -248,7 +463,7 @@ export default function BlogView({ id = "blog-view" }: BlogViewProps) {
               </h4>
               <ul className="space-y-5">
                 {trendingArticles.map((t, i) => (
-                  <li key={t.id} className="flex gap-4 items-start cursor-pointer group" onClick={() => setSelectedArticle(t)}>
+                  <li key={t.id} className="flex gap-4 items-start cursor-pointer group" onClick={() => handleSelectArticle(t)}>
                     <span className="font-heading font-extrabold text-2xl text-[#EAECEF] leading-none group-hover:text-[#EF233C] transition-colors">
                       0{i + 1}
                     </span>
@@ -309,97 +524,6 @@ export default function BlogView({ id = "blog-view" }: BlogViewProps) {
         </div>
       </section>
 
-      {/* Full Article Overlay Reader Modal */}
-      {selectedArticle && (
-        <div className="fixed inset-0 bg-[#0F172A]/90 z-200 flex items-center justify-center p-4 backdrop-blur-sm">
-          <div
-            className="bg-white border border-[#EAECEF] w-full max-w-2xl p-8 relative flex flex-col space-y-6 max-h-[90vh] overflow-y-auto font-sans"
-            style={{ borderRadius: "6px" }}
-          >
-            {/* Close */}
-            <button
-              onClick={() => setSelectedArticle(null)}
-              className="absolute top-4 right-4 text-[#64748B] hover:text-[#EF233C] p-2 focus:outline-none cursor-pointer"
-              aria-label="Close article browser"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            {/* Top metadata */}
-            <div className="space-y-3">
-              <span className="text-[10px] font-black uppercase text-[#EF233C] bg-red-50 px-2.5 py-1" style={{ borderRadius: "4px" }}>
-                {selectedArticle.categoryLabel}
-              </span>
-              <h2 className="font-heading font-black text-xl md:text-3xl text-[#0F172A] leading-tight pt-1">
-                {selectedArticle.title}
-              </h2>
-              <div className="flex items-center gap-4 text-xs text-[#64748B] font-semibold pt-1">
-                <span>By {selectedArticle.author}</span>
-                <span>•</span>
-                <span>{selectedArticle.date}</span>
-                <span>•</span>
-                <span>{selectedArticle.readTime}</span>
-              </div>
-            </div>
-
-            {/* Large Picture */}
-            <div className="aspect-video relative bg-slate-100 overflow-hidden" style={{ borderRadius: "6px" }}>
-              <img
-                src={selectedArticle.imageUrl}
-                alt={selectedArticle.title}
-                referrerPolicy="no-referrer"
-                className="object-cover w-full h-full"
-              />
-            </div>
-
-            {/* Body text rendering Markdown styled elements manually is highly secure */}
-            <div className="text-xs md:text-sm text-[#1E293B] leading-relaxed space-y-5 border-t border-[#EAECEF] pt-6 max-w-none">
-              {selectedArticle.content.split("\n\n").map((para, i) => {
-                if (para.startsWith("###")) {
-                  return (
-                    <h4 key={i} className="font-heading font-bold text-sm md:text-base text-[#0F172A] pt-4">
-                      {para.replace("###", "").trim()}
-                    </h4>
-                  );
-                }
-                if (para.startsWith("*")) {
-                  const listItems = para.split("\n").filter(li => li.trim());
-                  return (
-                    <ul key={i} className="list-disc pl-5 space-y-2">
-                      {listItems.map((li, idx) => (
-                        <li key={idx} className="font-medium">
-                          {li.replace("*", "").trim()}
-                        </li>
-                      ))}
-                    </ul>
-                  );
-                }
-                return <p key={i}>{para}</p>;
-              })}
-            </div>
-
-            {/* Footer action */}
-            <div className="pt-6 border-t border-[#EAECEF] flex justify-end gap-3">
-              <button
-                onClick={() => setSelectedArticle(null)}
-                className="px-5 py-3 border border-[#EAECEF] text-xs font-bold uppercase cursor-pointer"
-                style={{ borderRadius: "4px" }}
-              >
-                Done Reading
-              </button>
-              <a
-                href={`https://wa.me/254712345678?text=${encodeURIComponent(`Hello Tumaini Cyber, I read your article: "${selectedArticle.title}" and would like assistance with related services.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#25D366] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
-                style={{ borderRadius: "4px" }}
-              >
-                Inquire on WhatsApp <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

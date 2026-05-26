@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { MessageSquare } from "lucide-react";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 interface WhatsAppButtonProps {
   serviceName?: string;
@@ -11,7 +11,7 @@ interface WhatsAppButtonProps {
 }
 
 export default function WhatsAppButton({ serviceName = "Digital Services", id = "fixed-whatsapp-button" }: WhatsAppButtonProps) {
-  const phoneNumber = "254712345678"; // Format: country code + number (no spaces or +)
+  const phoneNumber = "254759607619"; // Format: country code + number (no spaces or +)
   const defaultText = `Hello Tumaini Cyber, I'd like to enquire about ${serviceName}`;
   const encodedText = encodeURIComponent(defaultText);
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
@@ -26,7 +26,7 @@ export default function WhatsAppButton({ serviceName = "Digital Services", id = 
       style={{ borderRadius: "4px" }} /* strict: border-radius 4px, no pill, and no rounded-full */
       aria-label="Contact Tumaini Cyber on WhatsApp"
     >
-      <MessageSquare className="w-5 h-5 fill-white" />
+      <WhatsAppIcon className="w-5 h-5 fill-white" fill="white" />
       <span className="font-heading font-semibold text-sm tracking-wide hidden sm:inline-block">
         Chat with Us
       </span>

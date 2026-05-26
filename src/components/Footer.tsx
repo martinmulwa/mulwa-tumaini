@@ -35,8 +35,8 @@ export default function Footer({ onNavigate, id = "tumaini-footer" }: FooterProp
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 pb-16">
           {/* Column 1: Brand & Newsletter */}
           <div className="lg:col-span-4 flex flex-col space-y-6">
-            <div className="bg-white px-6 py-4 inline-block self-start shadow-md border border-[#EAECEF]/15" style={{ borderRadius: "6px" }}>
-              <Logo variant="horizontal" className="h-20 md:h-24 lg:h-28 w-auto object-contain" />
+            <div className="inline-block self-start">
+              <Logo variant="horizontal" className="h-24 md:h-28 w-auto object-contain py-0" />
             </div>
             <p className="text-sm text-[#F8FAFC]/80 leading-relaxed max-w-sm">
               Your premier cyber café and digital services partner in Nairobi, Kenya. Committed to offering perfect prints, hassle-free government portal registrations, professional document formatting, and quality laptop accessories. We keep our local community compliant and fully connected.
@@ -212,7 +212,7 @@ export default function Footer({ onNavigate, id = "tumaini-footer" }: FooterProp
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate("about")}
+                  onClick={() => onNavigate("careers")}
                   className="text-[#F8FAFC]/80 hover:text-[#1997E6] text-left transition-colors duration-250 cursor-pointer"
                 >
                   Careers (We are Hiring)
@@ -237,7 +237,7 @@ export default function Footer({ onNavigate, id = "tumaini-footer" }: FooterProp
             <ul className="space-y-3.5 text-sm text-[#F8FAFC]/80">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-[#1997E6] flex-shrink-0 mt-0.5" />
-                <span>Ongata Rongai, Nairobi / Kajiado, Kenya (Coordinates: -1.395245, 36.764017)</span>
+                <span>Ongata Rongai, Kenya</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-[#1997E6] flex-shrink-0" />
@@ -276,8 +276,8 @@ export default function Footer({ onNavigate, id = "tumaini-footer" }: FooterProp
             &copy; 2026 Tumaini Cyber. All Rights Reserved. Designed & Developed by <strong className="text-[#F8FAFC]/70 hover:text-[#1997E6]">{`Martin Mulwa`}</strong>.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
-            <button onClick={() => onNavigate("contact")} className="hover:text-white transition-colors cursor-pointer">Privacy Policy</button>
-            <button onClick={() => onNavigate("contact")} className="hover:text-white transition-colors cursor-pointer">Terms of Service</button>
+            <button onClick={() => onNavigate("privacy")} className="hover:text-white transition-colors cursor-pointer">Privacy Policy</button>
+            <button onClick={() => onNavigate("terms")} className="hover:text-white transition-colors cursor-pointer">Terms of Service</button>
             <button
               onClick={scrollToTop}
               className="flex items-center gap-1.5 hover:text-white transition-all cursor-pointer bg-[#1E293B] px-3 py-1.5 rounded"
