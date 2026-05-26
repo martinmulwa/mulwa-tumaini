@@ -4,10 +4,10 @@
  */
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Star, Check, Globe, Shield, Wallet, Clock, ArrowRightLeft, Sparkles, MessageSquare, ChevronLeft, ChevronRight, Laptop, ExternalLink } from "lucide-react";
+import { ArrowRight, Star, Check, Globe, Shield, Wallet, Clock, ArrowRightLeft, Sparkles, MessageSquare, ChevronLeft, ChevronRight, Laptop, ExternalLink, X } from "lucide-react";
 import { servicesCatalog } from "../data/servicesCatalog";
 import { portfolioProjects } from "../data/portfolioData";
-import { Testimonial } from "../types";
+import { Testimonial, Project } from "../types";
 import WhatsAppIcon from "../components/WhatsAppIcon";
 
 export const heroSlides = [
@@ -59,6 +59,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
   const [metric2, setMetric2] = useState(0);
   const [metric3, setMetric3] = useState(90);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedModalProject, setSelectedModalProject] = useState<Project | null>(null);
 
   // Auto-slide effect (6 seconds)
   useEffect(() => {
@@ -325,7 +326,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
               return (
                 <div
                   key={service.id}
-                  onClick={() => onNavigate("services")}
+                  onClick={() => onNavigate("services", service.category)}
                   className="bg-white border border-[#EAECEF] overflow-hidden cursor-pointer group hover:-translate-y-1 hover:border-[#1997E6] transition-all duration-350 flex flex-col justify-between shadow-sm hover:shadow-md"
                   style={{ borderRadius: "8px" }}
                 >
@@ -367,11 +368,10 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
                     </div>
                   </div>
 
-                  {/* Pricing and Action */}
-                  <div className="p-6 pt-5 flex justify-between items-center border-t border-[#EAECEF] bg-slate-50/10 text-xs font-bold text-[#1E293B]">
-                    <span className="text-[#EF233C] text-sm font-black">{service.pricing}</span>
+                  {/* Action Link Row */}
+                  <div className="p-6 pt-5 flex justify-end items-center border-t border-[#EAECEF] bg-slate-50/10 text-xs font-bold text-[#1E293B]">
                     <span className="flex items-center gap-1 text-[#1997E6] group-hover:gap-2 transition-all font-extrabold">
-                      Enquire Details <ArrowRight className="w-3.5 h-3.5" />
+                      More Details <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
                 </div>
@@ -453,7 +453,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
           <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-6">
             <div className="space-y-3 text-center md:text-left">
               <span className="font-heading text-xs uppercase tracking-widest font-black text-[#1997E6] flex items-center gap-1">
-                <Laptop className="w-4 h-4" /> Engineering Showcase
+                <Laptop className="w-4 h-4" /> Project Showcase
               </span>
               <h2 className="font-heading font-extrabold text-3xl md:text-4.5xl tracking-tight text-[#0F172A]">
                 Recent Client Web & App Successes
@@ -464,7 +464,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
               className="border border-[#EAECEF] bg-white hover:bg-slate-50 text-[#1E293B] font-heading text-xs font-bold tracking-wider uppercase px-6 py-3.5 cursor-pointer transition-all"
               style={{ borderRadius: "4px" }}
             >
-              See All Web Portals
+              See All Projects
             </button>
           </div>
 
@@ -473,7 +473,7 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
             {previewProjects.map((project) => (
               <div
                 key={project.id}
-                onClick={() => onNavigate("portfolio")}
+                onClick={() => setSelectedModalProject(project)}
                 className="bg-white border border-[#EAECEF] overflow-hidden group hover:border-[#1997E6] transition-all duration-350 flex flex-col md:flex-row cursor-pointer shadow-sm hover:shadow-md"
                 style={{ borderRadius: "8px" }}
               >
@@ -604,6 +604,153 @@ export default function HomeView({ onNavigate, id = "home-view" }: HomeViewProps
           </div>
         </div>
       </section>
+
+      {/* 5.2 Project Details Modal (For Project Showcase click) */}
+      {selectedModalProject && (
+        <div className="fixed inset-0 bg-[#0F172A]/75 backdrop-blur-md flex items-center justify-center p-4 z-[9999] overflow-y-auto animate-fade-in" onClick={() => setSelectedModalProject(null)}>
+          <div 
+            className="bg-white w-full max-w-4xl my-8 relative shadow-[0_24px_48px_rgba(0,0,0,0.2)] flex flex-col max-h-[90vh] overflow-y-auto"
+            style={{ borderRadius: "12px" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-white border-b border-[#EAECEF] px-6 py-4 flex justify-between items-center z-10" style={{ borderTopLeftRadius: "12px", borderTopRightRadius: "12px" }}>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black uppercase text-[#1997E6] bg-sky-50 border border-sky-150 px-3 py-1 rounded">
+                  {selectedModalProject.categoryLabel}
+                </span>
+                <span className="text-xs text-slate-500 font-mono">• STATUS: COMPLETED</span>
+              </div>
+              <button
+                onClick={() => setSelectedModalProject(null)}
+                className="p-1.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-[#EF233C] transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5 flex-shrink-0" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 md:p-8 space-y-6 flex-1">
+              <div>
+                <h3 className="font-heading font-black text-xl md:text-2xl text-[#0F172A] tracking-tight mb-4">
+                  {selectedModalProject.title}
+                </h3>
+                
+                {/* Device browser frame */}
+                <div className="border border-[#EAECEF] bg-white shadow-xs overflow-hidden" style={{ borderRadius: "8px" }}>
+                  <div className="bg-slate-50 px-4 py-2.5 flex items-center gap-1.5 border-b border-[#EAECEF]">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-400 block" style={{ height: "10px", width: "10px" }} />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 block" style={{ height: "10px", width: "10px" }} />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 block" style={{ height: "10px", width: "10px" }} />
+                    <span className="text-[10px] font-mono text-slate-400 ml-4 select-none truncate">
+                      {selectedModalProject.siteUrl ? selectedModalProject.siteUrl.replace("https://", "") : "localhost:3000"}
+                    </span>
+                  </div>
+
+                  <div className="aspect-[16/9] relative bg-slate-100 overflow-hidden">
+                    <img
+                      src={selectedModalProject.imageUrl}
+                      alt={selectedModalProject.title}
+                      referrerPolicy="no-referrer"
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* Info and Description */}
+                <div className="lg:col-span-7 space-y-6">
+                  <div className="space-y-3.5 bg-white border border-[#EAECEF] p-6 shadow-xs rounded-lg">
+                    <h4 className="font-heading font-black text-xs text-[#1997E6] uppercase tracking-wider block">Project Overview</h4>
+                    <p className="text-xs md:text-sm text-slate-600 leading-relaxed font-semibold">
+                      {selectedModalProject.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Metrics and CTAs */}
+                <div className="lg:col-span-5 space-y-5">
+                  {/* Implementation Metrics Panel */}
+                  <div className="bg-white border border-[#EAECEF] p-5 space-y-4 shadow-xs rounded-lg">
+                    <h4 className="font-heading font-bold text-xs uppercase tracking-widest text-[#0F172A] border-b border-slate-100 pb-2">
+                      Implementation Metrics
+                    </h4>
+                    <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-xs font-semibold font-sans">
+                      <div>
+                        <span className="text-slate-400 block font-normal text-[10px]">DIVISION:</span>
+                        <span className="text-slate-800 block pt-0.5 uppercase tracking-wide truncate">{selectedModalProject.categoryLabel}</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block font-normal text-[10px]">DELIVERY:</span>
+                        <span className="text-emerald-600 block pt-0.5 uppercase tracking-wide">Completed</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block font-normal text-[10px]">SUPPORT SLA:</span>
+                        <span className="text-slate-800 block pt-0.5 uppercase tracking-wide">12 Months</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block font-normal text-[10px]">LOCATION:</span>
+                        <span className="text-slate-800 block pt-0.5 uppercase tracking-wide truncate">Rongai, Kenya</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Business Impact block */}
+                  <div className="bg-emerald-50 border border-emerald-100 p-5 space-y-3 rounded-lg">
+                    <div className="flex items-center gap-2 text-emerald-800">
+                      <span className="p-1 bg-emerald-100 rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-emerald-650" />
+                      </span>
+                      <span className="text-[9px] font-black uppercase tracking-wider block">Validated Business Impact</span>
+                    </div>
+                    <p className="text-xs md:text-sm font-extrabold text-[#111827] leading-relaxed font-sans">
+                      {selectedModalProject.result}
+                    </p>
+                  </div>
+
+                  {/* Action link buttons */}
+                  <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                    {selectedModalProject.siteUrl && (
+                      <a
+                        href={selectedModalProject.siteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full text-center bg-slate-100 hover:bg-slate-200 border border-slate-200 text-[#0F172A] font-heading text-xs font-bold uppercase tracking-wider py-3.5 px-4 flex items-center justify-center gap-1.5 transition-all"
+                        style={{ borderRadius: "4px" }}
+                      >
+                        Preview Site <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    <a
+                      href={`https://wa.me/254759607619?text=${encodeURIComponent(`Hello Tumaini Cyber, I am exploring your online projects portfolio and am very interested in the custom built project details: "${selectedModalProject.title}". I would like to request an inquiry or quotation for my business.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full text-center bg-[#25D366] hover:bg-[#1eba53] text-white py-3.5 px-4 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all select-none"
+                      style={{ borderRadius: "4px" }}
+                    >
+                      <WhatsAppIcon className="w-4.5 h-4.5" fill="white" />
+                      WhatsApp Link
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="border-t border-[#EAECEF] px-6 py-4 flex justify-end">
+              <button
+                onClick={() => setSelectedModalProject(null)}
+                className="bg-[#1E293B] hover:bg-[#0F172A] text-white px-6 py-3 text-xs font-bold uppercase tracking-wider cursor-pointer rounded select-none shadow-sm transition-colors"
+                style={{ borderRadius: "4px" }}
+              >
+                Close Details
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

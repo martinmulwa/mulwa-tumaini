@@ -80,14 +80,14 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
           {navLinks.map((link) => (
             <div
               key={link.view}
-              className="relative"
+              className="relative flex items-center"
               onMouseEnter={() => link.dropdown && setServicesDropdownOpen(true)}
               onMouseLeave={() => link.dropdown && setServicesDropdownOpen(false)}
             >
               {link.dropdown ? (
                 <button
                   onClick={() => handleNavItemClick("services")}
-                  className={`flex items-center gap-1 font-heading text-xs xl:text-sm font-bold tracking-wide uppercase transition-colors duration-250 cursor-pointer whitespace-nowrap flex-shrink-0 ${
+                  className={`flex items-center gap-1 font-heading text-[13px] xl:text-sm font-semibold tracking-wider uppercase transition-colors duration-250 cursor-pointer whitespace-nowrap flex-shrink-0 ${
                     currentView === "services" ? "text-[#1997E6]" : "text-[#1E293B] hover:text-[#1997E6]"
                   }`}
                   aria-expanded={servicesDropdownOpen}
@@ -99,13 +99,13 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
               ) : (
                 <button
                   onClick={() => handleNavItemClick(link.view)}
-                  className={`font-heading text-xs xl:text-sm font-bold tracking-wide uppercase transition-colors duration-250 cursor-pointer relative whitespace-nowrap flex-shrink-0 ${
+                  className={`font-heading text-[13px] xl:text-sm font-semibold tracking-wider uppercase transition-colors duration-250 cursor-pointer relative whitespace-nowrap flex-shrink-0 ${
                     currentView === link.view ? "text-[#1997E6]" : "text-[#1E293B] hover:text-[#1997E6]"
                   }`}
                 >
                   {link.name}
                   {currentView === link.view && (
-                    <span className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-[#1997E6] transition-all duration-300" />
+                    <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-[#1997E6] transition-all duration-300" />
                   )}
                 </button>
               )}
@@ -113,7 +113,7 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
               {/* Services Dropdown */}
               {link.dropdown && servicesDropdownOpen && (
                 <div
-                  className="absolute left-0 mt-0 w-64 bg-white border border-[#EAECEF] py-3 shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-200"
+                  className="absolute left-0 top-full mt-1.5 w-64 bg-white border border-[#EAECEF] py-3 shadow-[0_12px_32px_rgba(0,0,0,0.12)] z-[110] transition-all duration-200"
                   style={{ borderRadius: "4px" }}
                 >
                   {serviceCategories.map((cat) => (
@@ -132,34 +132,25 @@ export default function Navbar({ currentView, onNavigate, cartCount, onOpenCart,
         </nav>
 
         {/* Header Right Actions */}
-        <div className="hidden lg:flex items-center gap-3.5 xl:gap-6 flex-shrink-0">
+        <div className="hidden lg:flex items-center gap-3 xl:gap-5 flex-shrink-0">
           {/* Cart Icon */}
           <button
             onClick={onOpenCart}
-            className="p-2.5 text-[#1E293B] hover:text-[#1997E6] transition-colors relative cursor-pointer flex-shrink-0"
+            className="p-2 text-[#1E293B] hover:text-[#1997E6] transition-colors relative cursor-pointer flex-shrink-0"
             aria-label="Open Cart"
           >
-            <ShoppingCart className="w-5.5 h-5.5" />
+            <ShoppingCart className="w-5 h-5" />
             {cartCount > 0 && (
-              <span className="absolute top-0.5 right-0.5 bg-[#EF233C] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white">
+              <span className="absolute top-0 right-0 bg-[#EF233C] text-white text-[10px] font-bold w-4.5 h-4.5 flex items-center justify-center rounded-full border-2 border-white">
                 {cartCount}
               </span>
             )}
           </button>
 
-          {/* Phone Link */}
-          <a
-            href="tel:+254759607619"
-            className="flex items-center gap-1.5 text-xs font-black text-[#1E293B] hover:text-[#1997E6] transition-colors whitespace-nowrap flex-shrink-0"
-          >
-            <Phone className="w-4 h-4 text-[#1997E6] flex-shrink-0" />
-            <span className="font-mono tracking-tight">+254 759 607 619</span>
-          </a>
-
           {/* Request Quote Button */}
           <button
             onClick={() => handleNavItemClick("contact")}
-            className="bg-[#1997E6] hover:bg-[#147ec2] text-white font-heading text-[10px] xl:text-xs font-bold tracking-wider uppercase px-4 xl:px-6 py-2.5 xl:py-3.5 transition-all duration-250 cursor-pointer select-none whitespace-nowrap flex-shrink-0"
+            className="bg-[#1997E6] hover:bg-[#147ec2] text-white font-heading text-[10px] xl:text-xs font-bold tracking-wider uppercase px-4 xl:px-5 py-2.5 xl:py-3 transition-all duration-250 cursor-pointer select-none whitespace-nowrap flex-shrink-0"
             style={{ borderRadius: "4px" }}
           >
             Request Quote

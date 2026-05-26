@@ -22,6 +22,7 @@ import { Product, CartItem } from "./types";
 export default function App() {
   const [view, setView] = useState<string>("home");
   const [servicesCategoryFilter, setServicesCategoryFilter] = useState<string>("government");
+  const [portfolioProjectFilter, setPortfolioProjectFilter] = useState<string | undefined>(undefined);
   
   // Basket Shopping State managed globally
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -107,10 +108,14 @@ export default function App() {
   }, [view]);
 
   // Handle cross-navigation with specific filters
-  const handleNavigation = (targetView: string, categoryFilter?: string) => {
+  const handleNavigation = (targetView: string, filterPayload?: string) => {
     setView(targetView);
-    if (targetView === "services" && categoryFilter) {
-      setServicesCategoryFilter(categoryFilter);
+    if (targetView === "services" && filterPayload) {
+      setServicesCategoryFilter(filterPayload);
+    } else if (targetView === "portfolio") {
+      setPortfolioProjectFilter(filterPayload);
+    } else {
+      setPortfolioProjectFilter(undefined);
     }
     setCartOpen(false); // Close slider if navigating
   };
@@ -178,7 +183,7 @@ export default function App() {
         {view === "services" && (
           <ServicesView initialCategory={servicesCategoryFilter} />
         )}
-        {view === "portfolio" && <PortfolioView />}
+        {view === "portfolio" && <PortfolioView initialProjectId={portfolioProjectFilter} />}
         {view === "blog" && <BlogView />}
         {view === "shop" && (
           <ShopView

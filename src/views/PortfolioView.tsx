@@ -11,11 +11,29 @@ import WhatsAppIcon from "../components/WhatsAppIcon";
 
 interface PortfolioViewProps {
   id?: string;
+  initialProjectId?: string;
 }
 
-export default function PortfolioView({ id = "portfolio-view" }: PortfolioViewProps) {
+export default function PortfolioView({ id = "portfolio-view", initialProjectId }: PortfolioViewProps) {
   const [filter, setFilter] = useState<"all" | "web-development" | "graphic-design">("all");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(() => {
+    if (initialProjectId) {
+      const found = portfolioProjects.find((p) => p.id === initialProjectId);
+      if (found) return found;
+    }
+    return null;
+  });
+
+  React.useEffect(() => {
+    if (initialProjectId) {
+      const found = portfolioProjects.find((p) => p.id === initialProjectId);
+      if (found) {
+        setSelectedProject(found);
+      }
+    } else {
+      setSelectedProject(null);
+    }
+  }, [initialProjectId]);
 
   const handleSelectProject = (project: Project) => {
     setSelectedProject(project);

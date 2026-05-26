@@ -1,7 +1,7 @@
 # Tumaini Cyber Portal - High-Performance Client Showcase
 
 <p align="center">
-  <img src="./tumaini-cyber-logo.png" alt="Tumaini Cyber Logo" style="border-radius: 8px; max-width: 100%; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" referrerPolicy="no-referrer" />
+  <img src="./tumaini-cyber-logo.png" alt="Tumaini Cyber Logo" style="border-radius: 8px; width: 240px; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" referrerPolicy="no-referrer" />
 </p>
 
 ## 🚀 Welcome Prospective Employers & Clients
@@ -11,8 +11,8 @@ This project is an **enterprise-grade, high-conversion full-stack digital showca
 
 ### 🔗 Quick Navigation & Project Links
 * **Live Web Portal:** **[https://tumaini-cyber.netlify.app/](https://tumaini-cyber.netlify.app/)**
-* **GitHub Repository:** **[https://github.com/martinmulwa95/tumaini-cyber-portal](https://github.com/martinmulwa95/tumaini-cyber-portal)**
-* **Developer Portfolio:** **[Martin Mulwa - GitHub Profile](https://github.com/martinmulwa95)**
+* **GitHub Repository:** **[https://github.com/martinmulwa/mulwa-tumaini](https://github.com/martinmulwa/mulwa-tumaini)**
+* **Developer Portfolio:** **[Martin Mulwa - GitHub Profile](https://github.com/martinmulwa)**
 
 ---
 
@@ -38,12 +38,48 @@ Instead of cramming logic into monolithic files, the codebase adheres to strict 
 
 ---
 
-## 🛠️ Feature Highlights
+## 🛠️ Comprehensive Feature & Functionality Breakdown
 
-* **🛒 E-Commerce Cart & Automated Pricing:** Interactive stationery, compute accessory, and voucher shelf compiling precise M-Pesa client checkout packages.
-* **📚 Resource & Article Hub:** Highly readable search and category-filtered informational suite styled for peak editorial reading comfort.
-* **💼 Projects Portfolio & Case Studies:** Filterable business index showcasing delivered project specifications, business impacts, and validated performance metrics.
-* **🏢 Interactive Services Catalog:** Synchronized 3-category navigation mapping exact government, business, and educational digital pricing tiers.
+The **Tumaini Cyber Portal** is a feature-rich, deeply engaging platform engineered for optimal UX, fast loading speeds, and frictionless user conversion. Below is a detailed feature-by-feature breakdown of all sections implemented in this portal:
+
+### 1. Dynamic Hero Slideshow (HomeView)
+* **CLS-Safe Slider Engine:** Custom slider carousel bounded by fixed responsive minimum heights (`min-h-[96px]`, `md:min-h-[150px]`, etc.) to completely negate Cumulative Layout Shift (CLS) when slide text swaps.
+* **High-Contrast Overlays:** Uses rich semi-transparent gradients ensuring optimal text readability over diverse high-resolution background imagery.
+* **Ambient Animation Transitions:** Fine-tuned fading transitions and micro-delay slide movements driving high interaction rates.
+* **Directed Call To Actions (CTAs):** Dual-purpose quick CTAs allowing clients to dive instantly into local services or order cyber vouchers directly on the Spot.
+
+### 2. Live-Cart E-Commerce Experience (ShopView & Mobile Sliding Cart)
+* **Multi-Category Product Inventory:** Fully interactive digital storefront showcasing Office/Stationery materials, computer & laptop accessories, high-speed gaming and browsing cyber hours, and web design consultation packages.
+* **Seamless Slide-Over Shopping Cart:** Client-side cart coordinating real-time updates of multiple items, item quantity modifications, and item removals with live subtotal calculation.
+* **M-Pesa Checkout Package Formatter:** Automatically packages itemized checkouts (listing product names, quantities, unit prices, and grand total) into a single URI-encoded corporate WhatsApp ordering link (`wa.me/254759607619`) facilitating direct human-guided transactions.
+* **Interactive Voucher Shelf:** Digital vouchers for instant cyber-café services (high-speed color printing, custom formatting, and graphic-design requests) with a click-to-cart mechanism.
+
+### 3. Interactive Case Study & Projects Portfolio (PortfolioView)
+* **Smooth Animation-Driven Filtering:** Clients can sort through past client deliverable cards (Web Dev, Graphics Design, Cyber Support, and Academic Formatting) with micro-interactive animations.
+* **Deep-Dive Case Studies:** Clicking any project opens a full-screen or overlaid case-study view displaying structured goals, detailed development execution plans, integrated technical solutions, and quantifiable live metrics (e.g., "+300% conversion boost").
+* **Viewport-Top Focus Recall:** Automated navigation anchors instantly scroll the viewport back to `{ top: 0, behavior: 'smooth' }` when a case study is requested, matching optimal UX standards.
+
+### 4. Editorial Resource & Educational Hub (BlogView)
+* **Fuzzy Topic Search Bar:** Sub-second local text query engine filtering through titles, body intros, and category tags instantly.
+* **Segmented Category Nav-Pills:** Instant reactive pagination grouping articles across Government Portal Tips, Business Setup Guides, Student Resources, and Cutting-Edge Tech Insights.
+* **Side-Panel Trending Queue:** Quick links index aggregating hot trending articles of the week.
+* **Unified Reading Modal:** Renders the layout of selected posts cleanly with optimal reading-line lengths, complete share-ready metadata, and an action button to quickly query services associated with the post.
+* **Unified Scroll-to-Top:** Retains focus elegantly by shifting the browser to the exact header origin whenever a blog post is clicked.
+
+### 5. Services Directory & Cost Guides (ServicesView)
+* **Nairobi Government Portal Registration Suite:** Extensive portal covering details for KRA Tax Returns, eCitizen applications, Passport applications, Business Permit registrations, and Good Conduct paperwork.
+* **Professional Typography Drafting Services:** Clean layout highlighting professional CV re-writing, corporate brochure formatting, and complex academic research paper styling.
+* **Clear Upfront Pricing Tiers:** Transparent pricing modules indicating fixed costs and processing timelines, boosting customer信任 right off the bat.
+
+### 6. Robust Customer Lead Generation (ContactView)
+* **Real-time Field Valuations:** Instant form validation protecting user-input limits and email formats before submissions occur.
+* **Physically Simulated HTML5 Confetti Cannon:** Submits lead information and initiates a customized canvas particles generator with real gravity, drag, random velocities, and custom Tumaini branding colors.
+* **Direct Office Navigation Integration:** Detailed physical building locations in Nairobi paired with prompt contact mechanisms.
+
+### 7. Core Operational Sub-Sections
+* **Tailored Careers View (CareersView):** Interactive application pipelines detailing open opportunities for modern cyber managers, design interns, and remote content coordinators.
+* **Corporate Profile Section (AboutView):** Visionary business timeline sharing Tumaini Cyber’s community-driven mission and values.
+* **Kenyan Regulatory Compliance Docs:** Complete privacy policies (`PrivacyView`) and usage terms (`TermsView`) optimized for local Nairobi cyber operations compliance.
 
 ---
 
